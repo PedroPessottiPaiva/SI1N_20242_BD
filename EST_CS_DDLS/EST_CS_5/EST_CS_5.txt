@@ -1,0 +1,62 @@
+Estudo de Caso V: Loja Inova Tech
+
+-- Criação da tabela de Clientes
+CREATE TABLE Clientes (
+    cod_cliente SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(11) UNIQUE NOT NULL,
+    data_nascimento DATE NOT NULL,
+    endereco VARCHAR(255),
+    status_fidelidade ENUM('ativo', 'inativo') DEFAULT 'inativo'
+);
+ALTER TABLE Clientes ADD COLUMN email VARCHAR(100);
+
+-- Criação da tabela de Fornecedores
+CREATE TABLE Fornecedores (
+    cod_fornecedor SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    contato VARCHAR(100),
+    telefone VARCHAR(15),
+    endereco VARCHAR(255)
+);
+
+-- Criação da tabela de Produtos
+CREATE TABLE Produtos (
+    cod_produto SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    categoria VARCHAR(100),
+    preco DECIMAL(10, 2) NOT NULL,
+    estoque INT NOT NULL,
+    cod_fornecedor INT NOT NULL,
+    FOREIGN KEY (cod_fornecedor) REFERENCES Fornecedores(cod_fornecedor)
+);
+
+-- Criação da tabela de Vendas
+CREATE TABLE Vendas (
+    cod_venda SERIAL PRIMARY KEY,
+    cod_cliente INT NOT NULL,
+    data_venda DATE NOT NULL,
+    forma_pagamento VARCHAR(50),
+    valor_total DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (cod_cliente) REFERENCES Clientes(cod_cliente)
+);
+
+-- Tabela para armazenar os produtos vendidos em cada venda (Relacionamento M:N)
+CREATE TABLE Vendas_Produtos (
+    cod_venda_produto SERIAL PRIMARY KEY,
+    cod_venda INT NOT NULL,
+    cod_produto INT NOT NULL,
+    quantidade INT NOT NULL,
+    FOREIGN KEY (cod_venda) REFERENCES Vendas(cod_venda),
+    FOREIGN KEY (cod_produto) REFERENCES Produtos(cod_produto)
+);
+
+-- Criação da tabela de Pagamentos
+CREATE TABLE Pagamentos (
+    cod_pagamento SERIAL PRIMARY KEY,
+    cod_venda INT NOT NULL,
+    data_pagamento DATE NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    status ENUM('pago', 'pendente') NOT NULL,
+    FOREIGN KEY (cod_venda) REFERENCES Vendas(cod_venda)
+);

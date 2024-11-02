@@ -1,0 +1,64 @@
+Estudo de Caso 1: Cadeia de Suprimentos
+
+CREATE TABLE Fornecedores (
+    cod_fornecedor SERIAL PRIMARY KEY,
+    nome_empresa VARCHAR(100) NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
+    pais_origem VARCHAR(50) NOT NULL,
+    pessoa_contato VARCHAR(100),
+    telefone VARCHAR(15)
+);
+ALTER TABLE Fornecedores ADD COLUMN email VARCHAR(100);
+
+CREATE TABLE Produtos (
+    cod_produto SERIAL PRIMARY KEY,
+    nome_produto VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    especificacoes_tecnicas TEXT,
+    unidade_medida VARCHAR(20) NOT NULL,
+    preco_unitario DECIMAL(10, 2) NOT NULL,
+    quantidade_estoque INT NOT NULL,
+    localizacao_armazenagem VARCHAR(100),
+    ponto_ressuprimento INT NOT NULL
+);
+ALTER TABLE Produtos ADD COLUMN data_validade DATE;
+
+CREATE TABLE Pedidos_Compra (
+    numero_pedido SERIAL PRIMARY KEY,
+    data_pedido DATE NOT NULL,
+    data_entrega_esperada DATE NOT NULL,
+    status ENUM('em_processamento', 'enviado', 'recebido', 'cancelado') NOT NULL,
+    cod_fornecedor INT NOT NULL,
+    FOREIGN KEY (cod_fornecedor) REFERENCES Fornecedores(cod_fornecedor)
+);
+ALTER TABLE Pedidos_Compra ADD COLUMN observacoes TEXT;
+
+CREATE TABLE Recebimento_Materiais (
+    cod_recebimento SERIAL PRIMARY KEY,
+    numero_pedido INT NOT NULL,
+    data_recebimento DATE NOT NULL,
+    quantidade_recebida INT NOT NULL,
+    condicao ENUM('aceito', 'rejeitado') NOT NULL,
+    motivo_rejeicao TEXT,
+    FOREIGN KEY (numero_pedido) REFERENCES Pedidos_Compra(numero_pedido)
+);
+ALTER TABLE Recebimento_Materiais ADD COLUMN data_devolucao DATE;
+
+CREATE TABLE Filiais (
+    cod_filial SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
+    capacidade_armazenagem INT NOT NULL
+);
+ALTER TABLE Filiais ADD COLUMN gerente VARCHAR(100);
+
+CREATE TABLE Distribuicao (
+    cod_distribuicao SERIAL PRIMARY KEY,
+    cod_filial INT NOT NULL,
+    cod_produto INT NOT NULL,
+    quantidade INT NOT NULL,
+    data_transferencia DATE NOT NULL,
+    FOREIGN KEY (cod_filial) REFERENCES Filiais(cod_filial),
+    FOREIGN KEY (cod_produto) REFERENCES Produtos(cod_produto)
+);
+ALTER TABLE Distribuicao ADD COLUMN status ENUM('pendente', 'completo');

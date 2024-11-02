@@ -1,0 +1,69 @@
+Estudo de Caso IV: Academia Saúde em Movimento
+
+-- Criação da tabela de Alunos
+CREATE TABLE Alunos (
+    cod_aluno SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(11) UNIQUE NOT NULL,
+    data_nascimento DATE NOT NULL,
+    endereco VARCHAR(255)
+);
+ALTER TABLE Alunos ADD COLUMN email VARCHAR(100);
+
+-- Criação da tabela de Instrutores
+CREATE TABLE Instrutores (
+    cod_instrutor SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(11) UNIQUE NOT NULL,
+    especializacao VARCHAR(100)
+);
+
+-- Criação da tabela de Modalidades
+CREATE TABLE Modalidades (
+    cod_modalidade SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255)
+);
+
+-- Criação da tabela de Planos de Treinamento
+CREATE TABLE Planos_Treinamento (
+    cod_plano SERIAL PRIMARY KEY,
+    cod_aluno INT NOT NULL,
+    cod_instrutor INT NOT NULL,
+    descricao VARCHAR(255),
+    data_atualizacao DATE,
+    FOREIGN KEY (cod_aluno) REFERENCES Alunos(cod_aluno),
+    FOREIGN KEY (cod_instrutor) REFERENCES Instrutores(cod_instrutor)
+);
+
+-- Criação da tabela de Aulas
+CREATE TABLE Aulas (
+    cod_aula SERIAL PRIMARY KEY,
+    cod_modalidade INT NOT NULL,
+    horario TIME NOT NULL,
+    capacidade INT NOT NULL,
+    cod_instrutor INT NOT NULL,
+    FOREIGN KEY (cod_modalidade) REFERENCES Modalidades(cod_modalidade),
+    FOREIGN KEY (cod_instrutor) REFERENCES Instrutores(cod_instrutor)
+);
+
+-- Tabela para armazenar a matrícula dos Alunos em Modalidades (Relacionamento M:N)
+CREATE TABLE Matriculas (
+    cod_matricula SERIAL PRIMARY KEY,
+    cod_aluno INT NOT NULL,
+    cod_modalidade INT NOT NULL,
+    data_matricula DATE NOT NULL,
+    FOREIGN KEY (cod_aluno) REFERENCES Alunos(cod_aluno),
+    FOREIGN KEY (cod_modalidade) REFERENCES Modalidades(cod_modalidade)
+);
+
+-- Criação da tabela de Pagamentos
+CREATE TABLE Pagamentos (
+    cod_pagamento SERIAL PRIMARY KEY,
+    cod_aluno INT NOT NULL,
+    data_pagamento DATE NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    status ENUM('pago', 'pendente') NOT NULL,
+    FOREIGN KEY (cod_aluno) REFERENCES Alunos(cod_aluno)
+);
+ALTER TABLE Pagamentos ADD COLUMN metodo_pagamento VARCHAR(50);

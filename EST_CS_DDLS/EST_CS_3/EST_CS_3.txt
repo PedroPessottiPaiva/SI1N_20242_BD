@@ -1,0 +1,173 @@
+Estudo de Caso III: Sistema de Gestão Empresarial
+
+-- Criação da tabela de Clientes
+CREATE TABLE Clientes (
+    cod_cliente SERIAL PRIMARY KEY,
+    cnpj VARCHAR(18) UNIQUE NOT NULL,
+    razao_social VARCHAR(100) NOT NULL,
+    ramo_atividade VARCHAR(100),
+    data_cadastramento DATE NOT NULL,
+    pessoa_contato VARCHAR(100)
+);
+ALTER TABLE Clientes ADD COLUMN email VARCHAR(100);
+
+-- Tabela para armazenar telefones de clientes (multivalorado)
+CREATE TABLE Telefone_Clientes (
+    cod_telefone SERIAL PRIMARY KEY,
+    cod_cliente INT NOT NULL,
+    telefone VARCHAR(15),
+    FOREIGN KEY (cod_cliente) REFERENCES Clientes(cod_cliente)
+);
+
+-- Tabela para armazenar endereços de clientes (multivalorado)
+CREATE TABLE Endereco_Clientes (
+    cod_endereco SERIAL PRIMARY KEY,
+    cod_cliente INT NOT NULL,
+    tipo_endereco INT NOT NULL,
+    numero VARCHAR(10),
+    logradouro VARCHAR(255),
+    complemento VARCHAR(50),
+    cep VARCHAR(10),
+    bairro VARCHAR(100),
+    cidade VARCHAR(100),
+    estado VARCHAR(100),
+    FOREIGN KEY (cod_cliente) REFERENCES Clientes(cod_cliente),
+    FOREIGN KEY (tipo_endereco) REFERENCES Tipo_Endereco(cod_tipo_endereco)
+);
+
+-- Criação da tabela de Empregados
+CREATE TABLE Empregados (
+    matricula SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cargo VARCHAR(50) NOT NULL,
+    salario DECIMAL(10, 2) NOT NULL,
+    data_admissao DATE NOT NULL,
+    qualificacoes VARCHAR(255),
+    endereco VARCHAR(255)
+);
+
+-- Tabela para armazenar telefones de empregados (multivalorado)
+CREATE TABLE Telefone_Empregados (
+    cod_telefone SERIAL PRIMARY KEY,
+    matricula INT NOT NULL,
+    telefone VARCHAR(15),
+    FOREIGN KEY (matricula) REFERENCES Empregados(matricula)
+);
+
+-- Criação da tabela de Empresas
+CREATE TABLE Empresas (
+    cnpj VARCHAR(18) PRIMARY KEY,
+    razao_social VARCHAR(100) NOT NULL,
+    pessoa_contato VARCHAR(100),
+    endereco VARCHAR(255)
+);
+
+-- Tabela para armazenar telefones de empresas (multivalorado)
+CREATE TABLE Telefone_Empresas (
+    cod_telefone SERIAL PRIMARY KEY,
+    cnpj VARCHAR(18) NOT NULL,
+    telefone VARCHAR(15),
+    FOREIGN KEY (cnpj) REFERENCES Empresas(cnpj)
+);
+
+-- Criação da tabela de Fornecedores
+CREATE TABLE Fornecedores (
+    cnpj VARCHAR(18) PRIMARY KEY,
+    razao_social VARCHAR(100) NOT NULL,
+    endereco VARCHAR(255),
+    pessoa_contato VARCHAR(100)
+);
+
+-- Tabela para armazenar telefones de fornecedores (multivalorado)
+CREATE TABLE Telefone_Fornecedores (
+    cod_telefone SERIAL PRIMARY KEY,
+    cnpj VARCHAR(18) NOT NULL,
+    telefone VARCHAR(15),
+    FOREIGN KEY (cnpj) REFERENCES Fornecedores(cnpj)
+);
+
+-- Criação da tabela de Tipo de Endereço
+CREATE TABLE Tipo_Endereco (
+    cod_tipo_endereco SERIAL PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
+);
+
+-- Criação da tabela de Encomendas
+CREATE TABLE Encomendas (
+    numero SERIAL PRIMARY KEY,
+    data_inclusao DATE NOT NULL,
+    valor_total DECIMAL(10, 2) NOT NULL,
+    valor_desconto DECIMAL(10, 2),
+    valor_liquido DECIMAL(10, 2),
+    forma_pagamento INT NOT NULL,
+    quantidade_parcelas INT NOT NULL,
+    cod_cliente INT NOT NULL,
+    FOREIGN KEY (cod_cliente) REFERENCES Clientes(cod_cliente)
+);
+
+-- Criação da tabela de Produtos
+CREATE TABLE Produtos (
+    cod_produto SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cor VARCHAR(50),
+    dimensoes VARCHAR(50),
+    peso DECIMAL(10, 2),
+    preco DECIMAL(10, 2) NOT NULL,
+    tempo_fabricacao INT,
+    desenho_produto VARCHAR(255),
+    horas_mao_obra INT
+);
+
+-- Criação da tabela de Tipos de Componente
+CREATE TABLE Tipos_Componente (
+    cod_tipo_componente SERIAL PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
+);
+
+-- Criação da tabela de Componentes
+CREATE TABLE Componentes (
+    cod_componente SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    quantidade_estoque INT NOT NULL,
+    preco_unitario DECIMAL(10, 2) NOT NULL,
+    unidade VARCHAR(50) NOT NULL,
+    cod_tipo_componente INT NOT NULL,
+    FOREIGN KEY (cod_tipo_componente) REFERENCES Tipos_Componente(cod_tipo_componente)
+);
+
+-- Criação da tabela de Máquinas
+CREATE TABLE Maquinas (
+    cod_maquina SERIAL PRIMARY KEY,
+    tempo_vida INT,
+    data_compra DATE NOT NULL,
+    data_fim_garantia DATE
+);
+
+-- Criação da tabela de Recursos Específicos
+CREATE TABLE Recursos_Especificos (
+    cod_recurso SERIAL PRIMARY KEY,
+    quantidade_necessaria INT NOT NULL,
+    unidade VARCHAR(50) NOT NULL,
+    tempo_uso INT NOT NULL,
+    horas_mao_obra INT NOT NULL,
+    cod_produto INT NOT NULL,
+    FOREIGN KEY (cod_produto) REFERENCES Produtos(cod_produto)
+);
+
+-- Criação da tabela de Registro de Manutenção
+CREATE TABLE Registro_Manutencao (
+    cod_registro SERIAL PRIMARY KEY,
+    data DATE NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    cod_maquina INT NOT NULL,
+    FOREIGN KEY (cod_maquina) REFERENCES Maquinas(cod_maquina)
+);
+
+-- Criação da tabela de Registro de Suprimentos
+CREATE TABLE Registro_Suprimentos (
+    cod_registro SERIAL PRIMARY KEY,
+    quantidade INT NOT NULL,
+    data_necessidade DATE NOT NULL,
+    cod_componente INT NOT NULL,
+    FOREIGN KEY (cod_componente) REFERENCES Componentes(cod_componente)
+);
