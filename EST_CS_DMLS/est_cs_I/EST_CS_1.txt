@@ -1,0 +1,87 @@
+Estudo de Caso 1: Cadeia de Suprimentos 
+-- Inserções para Fornecedores
+INSERT INTO fornecedores (id_fornecedor, nome_empresa, endereco, pais_origem, pessoa_contato, telefone)
+VALUES (1, 'Fornecedor Vale Encantado', 'Rua do Sol, 123, Vale Encantado, Vila Velha', 'Brasil', 'Carlos Souza', '123456789');
+INSERT INTO fornecedores (id_fornecedor, nome_empresa, endereco, pais_origem, pessoa_contato, telefone)
+VALUES (2, 'Fornecedor Praia da Costa', 'Avenida Joaquim Ladeira, 456, Praia da Costa, Vila Velha', 'Brasil', 'Maria Oliveira', '987654321');
+INSERT INTO fornecedores (id_fornecedor, nome_empresa, endereco, pais_origem, pessoa_contato, telefone)
+VALUES (3, 'Fornecedor Itaparica', 'Rua dos Navegantes, 789, Itaparica, Vila Velha', 'Brasil', 'Li Wei', '123098765');
+INSERT INTO fornecedores (id_fornecedor, nome_empresa, endereco, pais_origem, pessoa_contato, telefone)
+VALUES (4, 'Fornecedor Itapuã', 'Rua Santa Maria, 321, Itapuã, Vila Velha', 'Brasil', 'Hans Müller', '456789123');
+INSERT INTO fornecedores (id_fornecedor, nome_empresa, endereco, pais_origem, pessoa_contato, telefone)
+VALUES (5, 'Fornecedor Cobilândia', 'Avenida das Américas, 654, Cobilândia, Vila Velha', 'Brasil', 'Yuki Tanaka', '654321987');
+
+UPDATE fornecedores 
+SET telefone = '1122334455' 
+WHERE id_fornecedor = 1;
+UPDATE fornecedores 
+SET endereco = 'Rua do Sol, 999, Vale Encantado, Vila Velha' 
+WHERE id_fornecedor = 2;
+
+DELETE FROM fornecedores 
+WHERE id_fornecedor = 5;
+
+-- Inserções para Produtos
+INSERT INTO produtos (id_produto, nome_produto, descricao, especificacoes_tecnicas, unidade_medida, preco_unitario, quantidade_estoque, localizacao_estoque, ponto_ressuprimento)
+VALUES (1, 'Produto A', 'Componente para máquinas industriais', 'Composição A, tamanho médio', 'unidade', 50.00, 100, 'A1, Vale Encantado', 20);
+INSERT INTO produtos (id_produto, nome_produto, descricao, especificacoes_tecnicas, unidade_medida, preco_unitario, quantidade_estoque, localizacao_estoque, ponto_ressuprimento)
+VALUES (2, 'Produto B', 'Componente eletrônico', 'Composição B, tamanho pequeno', 'unidade', 30.00, 200, 'B2, Praia da Costa', 50);
+INSERT INTO produtos (id_produto, nome_produto, descricao, especificacoes_tecnicas, unidade_medida, preco_unitario, quantidade_estoque, localizacao_estoque, ponto_ressuprimento)
+VALUES (3, 'Produto C', 'Componente para automação', 'Composição C, grande', 'unidade', 75.00, 150, 'C3, Itaparica', 30);
+INSERT INTO produtos (id_produto, nome_produto, descricao, especificacoes_tecnicas, unidade_medida, preco_unitario, quantidade_estoque, localizacao_estoque, ponto_ressuprimento)
+VALUES (4, 'Produto D', 'Peça de reposição para sistemas', 'Composição D, médio', 'unidade', 25.00, 250, 'D4, Itapuã', 70);
+INSERT INTO produtos (id_produto, nome_produto, descricao, especificacoes_tecnicas, unidade_medida, preco_unitario, quantidade_estoque, localizacao_estoque, ponto_ressuprimento)
+VALUES (5, 'Produto E', 'Componente hidráulico', 'Composição E, pequeno', 'unidade', 40.00, 180, 'E5, Planalto', 40);
+
+UPDATE produtos 
+SET preco_unitario = 55.00 
+WHERE id_produto = 1;
+UPDATE produtos 
+SET quantidade_estoque = 180 
+WHERE id_produto = 2;
+
+DELETE FROM produtos 
+WHERE id_produto = 5;
+
+INSERT INTO pedidos_compra (id_pedido, data_pedido, data_esperada_entrega, status_pedido, id_fornecedor)
+VALUES (101, '2024-11-01', '2024-11-10', 'Em processamento', 1);
+INSERT INTO pedidos_compra (id_pedido, data_pedido, data_esperada_entrega, status_pedido, id_fornecedor)
+VALUES (102, '2024-11-05', '2024-11-15', 'Em processamento', 2);
+INSERT INTO pedidos_compra (id_pedido, data_pedido, data_esperada_entrega, status_pedido, id_fornecedor)
+VALUES (103, '2024-11-07', '2024-11-20', 'Em processamento', 3);
+INSERT INTO pedidos_compra (id_pedido, data_pedido, data_esperada_entrega, status_pedido, id_fornecedor)
+VALUES (104, '2024-11-09', '2024-11-25', 'Em processamento', 4);
+INSERT INTO pedidos_compra (id_pedido, data_pedido, data_esperada_entrega, status_pedido, id_fornecedor)
+VALUES (105, '2024-11-12', '2024-11-30', 'Em processamento', 1);
+
+UPDATE pedidos_compra 
+SET status_pedido = 'Enviado' 
+WHERE id_pedido = 101;
+UPDATE pedidos_compra 
+SET data_esperada_entrega = '2024-11-17' 
+WHERE id_pedido = 102;
+
+DELETE FROM pedidos_compra 
+WHERE id_pedido = 105;
+
+-- Inserções para Recebimento de Materiais
+INSERT INTO recebimento_materiais (id_recebimento, id_pedido, data_recebimento, quantidade_recebida, condicao_materiais)
+VALUES (201, 101, '2024-11-11', 100, 'Aceito');
+INSERT INTO recebimento_materiais (id_recebimento, id_pedido, data_recebimento, quantidade_recebida, condicao_materiais)
+VALUES (202, 102, '2024-11-13', 200, 'Aceito');
+INSERT INTO recebimento_materiais (id_recebimento, id_pedido, data_recebimento, quantidade_recebida, condicao_materiais)
+VALUES (203, 103, '2024-11-15', 150, 'Rejeitado');
+INSERT INTO recebimento_materiais (id_recebimento, id_pedido, data_recebimento, quantidade_recebida, condicao_materiais)
+VALUES (204, 104, '2024-11-18', 250, 'Aceito');
+INSERT INTO recebimento_materiais (id_recebimento, id_pedido, data_recebimento, quantidade_recebida, condicao_materiais)
+VALUES (205, 105, '2024-11-20', 180, 'Aceito');
+
+UPDATE recebimento_materiais 
+SET quantidade_recebida = 120 
+WHERE id_recebimento = 201;
+UPDATE recebimento_materiais 
+SET condicao_materiais = 'Aceito' 
+WHERE id_recebimento = 203;
+
+DELETE FROM recebimento_materiais 
+WHERE id_recebimento = 205;

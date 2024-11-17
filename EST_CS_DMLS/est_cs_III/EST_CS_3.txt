@@ -1,0 +1,117 @@
+Estudo de Caso 3: Sistema de Gestão Empresarial
+
+-- Inserções para CLIENTES
+INSERT INTO clientes (codigo_cliente, cnpj, razao_social, ramo_atividade, data_cadastramento, pessoa_contato)
+VALUES (1, '12.345.678/0001-90', 'TechGlobal', 'Desenvolvimento de Software', '2024-10-01', 'Carlos Silva');
+INSERT INTO clientes (codigo_cliente, cnpj, razao_social, ramo_atividade, data_cadastramento, pessoa_contato)
+VALUES (2, '23.456.789/0001-10', 'SoftSolutions', 'Consultoria', '2024-10-05', 'Ana Costa');
+INSERT INTO clientes (codigo_cliente, cnpj, razao_social, ramo_atividade, data_cadastramento, pessoa_contato)
+VALUES (3, '34.567.890/0001-20', 'CreativeTech', 'Design e Software', '2024-10-10', 'João Almeida');
+INSERT INTO clientes (codigo_cliente, cnpj, razao_social, ramo_atividade, data_cadastramento, pessoa_contato)
+VALUES (4, '45.678.901/0001-30', 'DevSolutions', 'Desenvolvimento Web', '2024-10-15', 'Paula Mendes');
+INSERT INTO clientes (codigo_cliente, cnpj, razao_social, ramo_atividade, data_cadastramento, pessoa_contato)
+VALUES (5, '56.789.012/0001-40', 'TechFactory', 'Fabricante de Software', '2024-10-20', 'Lucas Rocha');
+
+UPDATE clientes 
+SET ramo_atividade = 'Consultoria em TI' 
+WHERE codigo_cliente = 2;
+UPDATE clientes 
+SET pessoa_contato = 'Mariana Santos' 
+WHERE codigo_cliente = 3;
+
+DELETE FROM clientes 
+WHERE codigo_cliente = 5;
+
+INSERT INTO empregados (matricula, nome, cargo, salario, data_admissao, qualificacoes, endereco)
+VALUES (1, 'Fernando Oliveira', 'Desenvolvedor', 5000, '2022-06-15', 'Java, Python', 'Rua A, 10 - Vitória, ES');
+INSERT INTO empregados (matricula, nome, cargo, salario, data_admissao, qualificacoes, endereco)
+VALUES (2, 'Luciana Silva', 'Analista de Sistemas', 4500, '2023-03-22', 'SQL, JavaScript', 'Rua B, 20 - Vila Velha, ES');
+INSERT INTO empregados (matricula, nome, cargo, salario, data_admissao, qualificacoes, endereco)
+VALUES (3, 'Carlos Santos', 'Gerente de Projetos', 7500, '2021-11-10', 'Gestão de TI, Scrum', 'Rua C, 30 - Guarapari, ES');
+INSERT INTO empregados (matricula, nome, cargo, salario, data_admissao, qualificacoes, endereco)
+VALUES (4, 'Patricia Alves', 'Coordenadora de TI', 8500, '2020-07-05', 'Gestão, Segurança da Informação', 'Rua D, 40 - Cariacica, ES');
+INSERT INTO empregados (matricula, nome, cargo, salario, data_admissao, qualificacoes, endereco)
+VALUES (5, 'Paulo Costa', 'Assistente Administrativo', 3000, '2024-01-10', 'Office, Excel', 'Rua E, 50 - Linhares, ES');
+
+UPDATE empregados 
+SET salario = 6000 
+WHERE matricula = 1;
+UPDATE empregados 
+SET qualificacoes = 'SQL, Node.js' 
+WHERE matricula = 2;
+
+DELETE FROM empregados 
+WHERE matricula = 5;
+
+INSERT INTO empresas (cnpj, razao_social, pessoa_contato, endereco)
+VALUES ('12.345.678/0001-90', 'TechPartners', 'Roberto Lima', 'Rua F, 60 - Vitória, ES');
+INSERT INTO empresas (cnpj, razao_social, pessoa_contato, endereco)
+VALUES ('23.456.789/0001-20', 'DevPartners', 'Ricardo Souza', 'Rua G, 70 - Vila Velha, ES');
+INSERT INTO empresas (cnpj, razao_social, pessoa_contato, endereco)
+VALUES ('34.567.890/0001-30', 'InnovateTech', 'Gabriela Pereira', 'Rua H, 80 - Cachoeiro de Itapemirim, ES');
+INSERT INTO empresas (cnpj, razao_social, pessoa_contato, endereco)
+VALUES ('45.678.901/0001-40', 'DesignPro', 'Alexandre Costa', 'Rua I, 90 - Serra, ES');
+INSERT INTO empresas (cnpj, razao_social, pessoa_contato, endereco)
+VALUES ('56.789.012/0001-50', 'SolutionsCorp', 'Fernanda Martins', 'Rua J, 100 - Colatina, ES');
+
+UPDATE empresas 
+SET endereco = 'Rua F, 100 - Vitória, ES' 
+WHERE cnpj = '12.345.678/0001-90';
+UPDATE empresas 
+SET pessoa_contato = 'Carlos Pereira' 
+WHERE cnpj = '23.456.789/0001-20';
+
+DELETE FROM empresas 
+WHERE cnpj = '56.789.012/0001-50';
+
+INSERT INTO fornecedores (cnpj, razao_social, endereco, pessoa_contato)
+VALUES ('23.456.789/0001-11', 'Supplies Ltda.', 'Rua K, 110 - Vitória, ES', 'Ricardo Alves');
+INSERT INTO fornecedores (cnpj, razao_social, endereco, pessoa_contato)
+VALUES ('34.567.890/0001-12', 'Components Corp.', 'Rua L, 120 - Vila Velha, ES', 'Renata Gomes');
+INSERT INTO fornecedores (cnpj, razao_social, endereco, pessoa_contato)
+VALUES ('45.678.901/0001-13', 'TechParts Ltda.', 'Rua M, 130 - Guarapari, ES', 'Fernando Oliveira');
+INSERT INTO fornecedores (cnpj, razao_social, endereco, pessoa_contato)
+VALUES ('56.789.012/0001-14', 'PartsCo', 'Rua N, 140 - Serra, ES', 'Gustavo Costa');
+INSERT INTO fornecedores (cnpj, razao_social, endereco, pessoa_contato)
+VALUES ('67.890.123/0001-15', 'Solutions Parts', 'Rua O, 150 - Cariacica, ES', 'Patricia Lima');
+
+UPDATE fornecedores 
+SET endereco = 'Rua K, 150 - Vitória, ES' 
+WHERE cnpj = '23.456.789/0001-11';
+UPDATE fornecedores 
+SET pessoa_contato = 'Gustavo Lima' 
+WHERE cnpj = '45.678.901/0001-13';
+
+DELETE FROM fornecedores 
+WHERE cnpj = '67.890.123/0001-15';
+
+INSERT INTO tipos_endereco (codigo_tipo, nome)
+VALUES (1, 'Comercial');
+INSERT INTO tipos_endereco (codigo_tipo, nome)
+VALUES (2, 'Residencial');
+INSERT INTO tipos_endereco (codigo_tipo, nome)
+VALUES (3, 'Entrega');
+INSERT INTO tipos_endereco (codigo_tipo, nome)
+VALUES (4, 'Fábrica');
+INSERT INTO tipos_endereco (codigo_tipo, nome)
+VALUES (5, 'Escritório');
+
+UPDATE tipos_endereco 
+SET nome = 'Loja' 
+WHERE codigo_tipo = 3;
+UPDATE tipos_endereco 
+SET nome = 'Armazém' 
+WHERE codigo_tipo = 4;
+
+DELETE FROM tipos_endereco 
+WHERE codigo_tipo = 5;
+
+INSERT INTO enderecos (numero, logradouro, complemento, cep, bairro, cidade, estado, tipo_endereco)
+VALUES (101, 'Rua A', 'Apto 101', '12345-000', 'Centro', 'Vitória', 'ES', 1);
+INSERT INTO enderecos (numero, logradouro, complemento, cep, bairro, cidade, estado, tipo_endereco)
+VALUES (102, 'Rua B', 'Apto 102', '23456-111', 'Jardins', 'Vila Velha', 'ES', 2);
+INSERT INTO enderecos (numero, logradouro, complemento, cep, bairro, cidade, estado, tipo_endereco)
+VALUES (103, 'Rua C', 'Apto 103', '34567-222', 'Vila Progredir', 'Cachoeiro de Itapemirim', 'ES', 3);
+INSERT INTO enderecos (numero, logradouro, complemento, cep, bairro, cidade, estado, tipo_endereco)
+VALUES (104, 'Rua D', 'Apto 104', '45678-333', 'Jardim das Flores', 'Serra', 'ES', 4);
+INSERT INTO enderecos (

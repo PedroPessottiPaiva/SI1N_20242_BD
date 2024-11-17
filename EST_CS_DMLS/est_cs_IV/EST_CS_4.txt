@@ -1,0 +1,123 @@
+Estudo de Caso IV: Academia Saúde em Movimento
+
+INSERT INTO alunos (codigo_aluno, nome, cpf, data_nascimento, endereco)
+VALUES (1, 'Maria Oliveira', '123.456.789-00', '1995-02-20', 'Rua A, 100 - Vila Velha, ES');
+INSERT INTO alunos (codigo_aluno, nome, cpf, data_nascimento, endereco)
+VALUES (2, 'José Santos', '987.654.321-00', '1988-07-10', 'Rua B, 200 - Vila Velha, ES');
+INSERT INTO alunos (codigo_aluno, nome, cpf, data_nascimento, endereco)
+VALUES (3, 'Ana Costa', '111.222.333-00', '1992-05-15', 'Rua C, 300 - Vila Velha, ES');
+INSERT INTO alunos (codigo_aluno, nome, cpf, data_nascimento, endereco)
+VALUES (4, 'Carlos Pereira', '444.555.666-00', '1990-11-30', 'Rua D, 400 - Vila Velha, ES');
+INSERT INTO alunos (codigo_aluno, nome, cpf, data_nascimento, endereco)
+VALUES (5, 'Patrícia Lima', '777.888.999-00', '1993-09-25', 'Rua E, 500 - Vila Velha, ES');
+
+UPDATE alunos 
+SET nome = 'Ana Beatriz Costa' 
+WHERE codigo_aluno = 3;
+UPDATE alunos 
+SET endereco = 'Rua C, 350 - Vila Velha, ES' 
+WHERE codigo_aluno = 1;
+
+DELETE FROM alunos 
+WHERE codigo_aluno = 5;
+
+INSERT INTO instrutores (codigo_instrutor, nome, modalidade, experiencia)
+VALUES (1, 'Ricardo Souza', 'Musculação', 5);
+INSERT INTO instrutores (codigo_instrutor, nome, modalidade, experiencia)
+VALUES (2, 'Patrícia Martins', 'Pilates', 8);
+INSERT INTO instrutores (codigo_instrutor, nome, modalidade, experiencia)
+VALUES (3, 'Carlos Almeida', 'Natação', 6);
+INSERT INTO instrutores (codigo_instrutor, nome, modalidade, experiencia)
+VALUES (4, 'Joana Ferreira', 'Musculação', 4);
+INSERT INTO instrutores (codigo_instrutor, nome, modalidade, experiencia)
+VALUES (5, 'Felipe Gomes', 'Yoga', 3);
+
+UPDATE instrutores 
+SET experiencia = 7 
+WHERE codigo_instrutor = 2;
+UPDATE instrutores 
+SET nome = 'Joana Silva Ferreira' 
+WHERE codigo_instrutor = 4;
+
+DELETE FROM instrutores 
+WHERE codigo_instrutor = 5;
+
+INSERT INTO modalidades (codigo_modalidade, nome_modalidade, descricao)
+VALUES (1, 'Musculação', 'Treinamento físico com pesos e exercícios de resistência.');
+INSERT INTO modalidades (codigo_modalidade, nome_modalidade, descricao)
+VALUES (2, 'Pilates', 'Exercícios de alongamento e fortalecimento do corpo.');
+INSERT INTO modalidades (codigo_modalidade, nome_modalidade, descricao)
+VALUES (3, 'Natação', 'Exercícios aquáticos para resistência e condicionamento.');
+INSERT INTO modalidades (codigo_modalidade, nome_modalidade, descricao)
+VALUES (4, 'Yoga', 'Exercícios focados em alongamento, meditação e equilíbrio.');
+INSERT INTO modalidades (codigo_modalidade, nome_modalidade, descricao)
+VALUES (5, 'Zumba', 'Aula de dança para condicionamento físico e diversão.');
+
+-- Atualizações para MODALIDADES
+UPDATE modalidades 
+SET descricao = 'Treinamento focado em resistência física com pesos e exercícios variados.' 
+WHERE codigo_modalidade = 1;
+
+-- Deletação para MODALIDADES
+DELETE FROM modalidades 
+WHERE codigo_modalidade = 5;
+
+-- Inserções para PLANOS DE TREINAMENTO
+INSERT INTO planos_treinamento (codigo_plano, descricao, duracao_dias)
+VALUES (1, 'Plano de Musculação para Iniciantes', 30);
+INSERT INTO planos_treinamento (codigo_plano, descricao, duracao_dias)
+VALUES (2, 'Plano de Pilates Avançado', 45);
+INSERT INTO planos_treinamento (codigo_plano, descricao, duracao_dias)
+VALUES (3, 'Plano de Natação Intensivo', 30);
+INSERT INTO planos_treinamento (codigo_plano, descricao, duracao_dias)
+VALUES (4, 'Plano de Yoga para Relaxamento', 60);
+
+UPDATE planos_treinamento 
+SET descricao = 'Plano de Musculação Avançada' 
+WHERE codigo_plano = 1;
+
+-- Deletação para PLANOS DE TREINAMENTO
+DELETE FROM planos_treinamento 
+WHERE codigo_plano = 4;
+
+INSERT INTO aulas (codigo_aula, nome_aula, horario, instrutor_responsavel, capacidade_maxima)
+VALUES (1, 'Musculação para Iniciantes', '08:00:00', 'Ricardo Souza', 20);
+INSERT INTO aulas (codigo_aula, nome_aula, horario, instrutor_responsavel, capacidade_maxima)
+VALUES (2, 'Pilates Avançado', '09:00:00', 'Patrícia Martins', 15);
+INSERT INTO aulas (codigo_aula, nome_aula, horario, instrutor_responsavel, capacidade_maxima)
+VALUES (3, 'Natação Intensiva', '10:00:00', 'Carlos Almeida', 10);
+INSERT INTO aulas (codigo_aula, nome_aula, horario, instrutor_responsavel, capacidade_maxima)
+VALUES (4, 'Yoga Relaxante', '11:00:00', 'Joana Ferreira', 12);
+
+UPDATE aulas 
+SET horario = '08:30:00' 
+WHERE codigo_aula = 1;
+
+DELETE FROM aulas 
+WHERE codigo_aula = 4;
+
+INSERT INTO pagamentos (codigo_pagamento, aluno_codigo, data_pagamento, valor, status_pagamento)
+VALUES (1, 1, '2024-10-01', 150.00, 'PAGO');
+INSERT INTO pagamentos (codigo_pagamento, aluno_codigo, data_pagamento, valor, status_pagamento)
+VALUES (2, 2, '2024-10-05', 120.00, 'PENDENTE');
+INSERT INTO pagamentos (codigo_pagamento, aluno_codigo, data_pagamento, valor, status_pagamento)
+VALUES (3, 3, '2024-10-10', 100.00, 'PAGO');
+INSERT INTO pagamentos (codigo_pagamento, aluno_codigo, data_pagamento, valor, status_pagamento)
+VALUES (4, 4, '2024-10-15', 130.00, 'PENDENTE');
+
+UPDATE pagamentos 
+SET status_pagamento = 'PAGO' 
+WHERE codigo_pagamento = 2;
+
+DELETE FROM pagamentos 
+WHERE codigo_pagamento = 4;
+
+-- Relacionamento entre ALUNOS e MODALIDADES (Matriculas)
+INSERT INTO matriculas (aluno_codigo, modalidade_codigo)
+VALUES (1, 1);  -- Maria Oliveira se matriculou em Musculação
+INSERT INTO matriculas (aluno_codigo, modalidade_codigo)
+VALUES (2, 2);  -- José Santos se matriculou em Pilates
+INSERT INTO matriculas (aluno_codigo, modalidade_codigo)
+VALUES (3, 3);  -- Ana Costa se matriculou em Natação
+INSERT INTO matriculas (aluno_codigo, modalidade_codigo)
+VALUES (4, 1);  -- Carlos Pereira se matriculou em Musculação

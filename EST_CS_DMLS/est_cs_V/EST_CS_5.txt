@@ -1,0 +1,79 @@
+Estudo de Caso 5: Loja Inova Tech
+
+
+INSERT INTO Clientes (id_cliente, nome, cpf, data_nascimento, endereco, status_fidelidade) 
+VALUES (1, 'Carlos Souza', '123.456.789-01', '1990-05-10', 'Rua A, Cobilândia, Vila Velha, ES', 'ativo');
+INSERT INTO Clientes (id_cliente, nome, cpf, data_nascimento, endereco, status_fidelidade) 
+VALUES (2, 'Fernanda Silva', '987.654.321-00', '1985-03-20', 'Rua B, Cobilândia, Vila Velha, ES', 'inativo');
+INSERT INTO Clientes (id_cliente, nome, cpf, data_nascimento, endereco, status_fidelidade) 
+VALUES (3, 'João Pereira', '111.222.333-44', '1992-07-15', 'Rua C, Cobilândia, Vila Velha, ES', 'ativo');
+INSERT INTO Clientes (id_cliente, nome, cpf, data_nascimento, endereco, status_fidelidade) 
+VALUES (4, 'Ana Costa', '444.555.666-77', '1995-12-12', 'Rua D, Cobilândia, Vila Velha, ES', 'ativo');
+INSERT INTO Clientes (id_cliente, nome, cpf, data_nascimento, endereco, status_fidelidade) 
+VALUES (5, 'Luciana Oliveira', '333.222.111-00', '1989-09-05', 'Rua E, Cobilândia, Vila Velha, ES', 'inativo');
+
+INSERT INTO Produtos (id_produto, nome, preco, quantidade_estoque, fornecedor_id) 
+VALUES (1, 'Computador', 3500.00, 10, 1);
+INSERT INTO Produtos (id_produto, nome, preco, quantidade_estoque, fornecedor_id) 
+VALUES (2, 'Celular', 1500.00, 20, 2);
+INSERT INTO Produtos (id_produto, nome, preco, quantidade_estoque, fornecedor_id) 
+VALUES (3, 'Fone de Ouvido', 200.00, 50, 3);
+INSERT INTO Produtos (id_produto, nome, preco, quantidade_estoque, fornecedor_id) 
+VALUES (4, 'Mouse', 50.00, 100, 4);
+INSERT INTO Produtos (id_produto, nome, preco, quantidade_estoque, fornecedor_id) 
+VALUES (5, 'Teclado', 120.00, 80, 5);
+
+INSERT INTO Fornecedores (id_fornecedor, nome, telefone, endereco) 
+VALUES (1, 'Tech Supplies Ltda', '27 3333-5555', 'Avenida Vitória, Vitória, ES');
+INSERT INTO Fornecedores (id_fornecedor, nome, telefone, endereco) 
+VALUES (2, 'SmartTech Brasil', '27 4444-6666', 'Rua Porto, Vila Velha, ES');
+INSERT INTO Fornecedores (id_fornecedor, nome, telefone, endereco) 
+VALUES (3, 'AudioTech', '27 5555-7777', 'Rua Belo Horizonte, Cobilândia, Vila Velha, ES');
+INSERT INTO Fornecedores (id_fornecedor, nome, telefone, endereco) 
+VALUES (4, 'GigaTec', '27 6666-8888', 'Rua Rio Doce, Vila Velha, ES');
+INSERT INTO Fornecedores (id_fornecedor, nome, telefone, endereco) 
+VALUES (5, 'TecnoLink', '27 7777-9999', 'Rua Marechal, Cobilândia, Vila Velha, ES');
+
+INSERT INTO Vendas (id_venda, cliente_id, data_venda, total_valor, status_pagamento) 
+VALUES (1, 1, '2024-10-01', 5200.00, 'pago');
+INSERT INTO Vendas (id_venda, cliente_id, data_venda, total_valor, status_pagamento) 
+VALUES (2, 2, '2024-10-05', 3000.00, 'pendente');
+INSERT INTO Vendas (id_venda, cliente_id, data_venda, total_valor, status_pagamento) 
+VALUES (3, 3, '2024-10-10', 4500.00, 'pago');
+INSERT INTO Vendas (id_venda, cliente_id, data_venda, total_valor, status_pagamento) 
+VALUES (4, 4, '2024-10-12', 1500.00, 'pendente');
+INSERT INTO Vendas (id_venda, cliente_id, data_venda, total_valor, status_pagamento) 
+VALUES (5, 5, '2024-10-15', 6000.00, 'pago');
+
+INSERT INTO Pagamentos (id_pagamento, venda_id, data_pagamento, valor_pago, status_pagamento) 
+VALUES (1, 1, '2024-10-02', 5200.00, 'pago');
+INSERT INTO Pagamentos (id_pagamento, venda_id, data_pagamento, valor_pago, status_pagamento) 
+VALUES (2, 3, '2024-10-11', 4500.00, 'pago');
+INSERT INTO Pagamentos (id_pagamento, venda_id, data_pagamento, valor_pago, status_pagamento) 
+VALUES (3, 5, '2024-10-16', 6000.00, 'pago');
+INSERT INTO Pagamentos (id_pagamento, venda_id, data_pagamento, valor_pago, status_pagamento) 
+VALUES (4, 2, '2024-10-06', 2000.00, 'pendente');
+INSERT INTO Pagamentos (id_pagamento, venda_id, data_pagamento, valor_pago, status_pagamento) 
+VALUES (5, 4, '2024-10-14', 1000.00, 'pendente');
+
+UPDATE Clientes 
+SET status_fidelidade = 'ativo' 
+WHERE id_cliente = 2;
+
+UPDATE Clientes 
+SET status_fidelidade = 'inativo' 
+WHERE id_cliente = 1;
+
+UPDATE Produtos 
+SET quantidade_estoque = quantidade_estoque - 1 
+WHERE id_produto = 1;
+
+UPDATE Produtos 
+SET quantidade_estoque = quantidade_estoque - 2 
+WHERE id_produto = 2;
+
+DELETE FROM Clientes 
+WHERE id_cliente = 5;
+
+DELETE FROM Produtos 
+WHERE id_produto = 4;
