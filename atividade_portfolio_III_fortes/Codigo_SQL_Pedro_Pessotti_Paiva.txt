@@ -1,0 +1,130 @@
+Código SQL
+
+-- Criação do banco de dados
+CREATE DATABASE `acao_social`;
+
+USE `acao_social`;
+
+-- Tabela de Usuários
+CREATE TABLE `Usuario` (
+    `id_usuario` INT NOT NULL AUTO_INCREMENT,
+    `nome` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(100) UNIQUE NOT NULL,
+    `senha` VARCHAR(255) NOT NULL,
+    `perfil` ENUM('administrador', 'doador', 'colaborador', 'voluntario') NOT NULL,
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `status` ENUM('ativo', 'inativo') DEFAULT 'ativo',
+    `data_ultimo_login` DATETIME,
+    PRIMARY KEY (`id_usuario`)
+);
+
+-- Tabela de Ação Social
+CREATE TABLE `Acao_Social` (
+    `id_acao` INT NOT NULL AUTO_INCREMENT,
+    `nome` VARCHAR(100) NOT NULL,
+    `descricao` TEXT NOT NULL,
+    `data_inicio` DATETIME,
+    `data_fim` DATETIME,
+    `status` ENUM('planejada', 'em andamento', 'concluida') DEFAULT 'planejada',
+    `id_responsavel` INT,
+    PRIMARY KEY (`id_acao`),
+    FOREIGN KEY (`id_responsavel`) REFERENCES `Usuario`(`id_usuario`) ON DELETE SET NULL
+);
+
+-- Tabela de Doação
+CREATE TABLE `Doacao` (
+    `id_doacao` INT NOT NULL AUTO_INCREMENT,
+    `tipo` ENUM('dinheiro', 'alimento', 'roupa') NOT NULL,
+    `quantidade` INT,
+    `valor` DECIMAL(10, 2),
+    `data_doacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `id_usuario` INT,
+    `id_acao` INT,
+    PRIMARY KEY (`id_doacao`),
+    FOREIGN KEY (`id_usuario`) REFERENCES `Usuario`(`id_usuario`) ON DELETE CASCADE,
+    FOREIGN KEY (`id_acao`) REFERENCES `Acao_Social`(`id_acao`) ON DELETE CASCADE
+);
+
+-- Tabela de Recurso
+CREATE TABLE `Recurso` (
+    `id_recurso` INT NOT NULL AUTO_INCREMENT,
+    `tipo` ENUM('dinheiro', 'alimento', 'roupa') NOT NULL,
+    `descricao` TEXT,
+    `quantidade` INT,
+    `valor` DECIMAL(10, 2),
+    `id_acao` INT,
+    PRIMARY KEY (`id_recurso`),
+    FOREIGN KEY (`id_acao`) REFERENCES `Acao_Social`(`id_acao`) ON DELETE CASCADE
+);
+
+-- Tabela de Histórico de Ações
+CREATE TABLE `Historico_Acoes` (
+    `id_historico` INT NOT NULL AUTO_INCREMENT,
+    `descricao_alteracao` TEXT NOT NULL,
+    `data_alteracao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `id_acao` INT,
+    `id_usuario` INT,
+    PRIMARY KEY (`id_historico`),
+    FOREIGN KEY (`id_acao`) REFERENCES `Acao_Social`(`id_acao`) ON DELETE CASCADE,
+    FOREIGN KEY (`id_usuario`) REFERENCES `Usuario`(`id_usuario`) ON DELETE CASCADE
+);
+
+-- Tabela de Participação
+CREATE TABLE `Participacao` (
+    `id_participacao` INT NOT NULL AUTO_INCREMENT,
+    `data_participacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `id_usuario` INT,
+    `id_acao` INT,
+    PRIMARY KEY (`id_participacao`),
+    FOREIGN KEY (`id_usuario`) REFERENCES `Usuario`(`id_usuario`) ON DELETE CASCADE,
+    FOREIGN KEY (`id_acao`) REFERENCES `Acao_Social`(`id_acao`) ON DELETE CASCADE
+);
+
+-- Tabela de Comentário
+CREATE TABLE `Comentario` (
+    `id_comentario` INT NOT NULL AUTO_INCREMENT,
+    `comentario` TEXT NOT NULL,
+    `data_comentario` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `id_usuario` INT,
+    `id_acao` INT,
+    `id_doacao` INT,
+    PRIMARY KEY (`id_comentario`),
+    FOREIGN KEY (`id_usuario`) REFERENCES `Usuario`(`id_usuario`) ON DELETE CASCADE,
+    FOREIGN KEY (`id_acao`) REFERENCES `Acao_Social`(`id_acao`) ON DELETE CASCADE,
+    FOREIGN KEY (`id_doacao`) REFERENCES `Doacao`(`id_doacao`) ON DELETE CASCADE
+);
+
+-- Tabela de Instituição Carente
+CREATE TABLE `Instituicao_Carente` (
+    `id_instituicao` INT NOT NULL AUTO_INCREMENT,
+    `nome` VARCHAR(255) NOT NULL,
+    `endereco` VARCHAR(255),
+    `telefone` VARCHAR(20),
+    `email` VARCHAR(100),
+    `descricao` TEXT,
+    PRIMARY KEY (`id_instituicao`)
+);
+
+-- Tabela de Notificação
+CREATE TABLE `Notificacao` (
+    `id_notificacao` INT NOT NULL AUTO_INCREMENT,
+    `mensagem` TEXT NOT NULL,
+    `data_envio` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `status` ENUM('pendente', 'lida') DEFAULT 'pendente',
+    `id_usuario` INT,
+    PRIMARY KEY (`id_notificacao`),
+    FOREIGN KEY (`id_usuario`) REFERENCES `Usuario`(`id_usuario`) ON DELETE CASCADE
+);
+
+-- Tabela de Distribuição
+CREATE TABLE `Distribuicao` (
+    `id_distribuicao` INT NOT NULL AUTO_INCREMENT,
+    `data_distribuicao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `quantidade` INT,
+    `tipo_recurso` ENUM('dinheiro', 'alimento', 'roupa') NOT NULL,
+    `id_instituicao` INT,
+    `id_acao` INT,
+    PRIMARY KEY (`id_distribuicao`),
+    FOREIGN KEY (`id_instituicao`) REFERENCES `Instituicao_Carente`(`id_instituicao`) ON DELETE CASCADE,
+    FOREIGN KEY (`id_acao`) REFERENCES `Acao_Social`(`id_acao`) ON DELETE CASCADE
+);
